@@ -1,9 +1,18 @@
 const db = require("../../models");
 const Ongoing = db.ongoing;
 
-exports.createOngoing = async (req, res) => {
+exports.createOngoing = async (req, res, next) => {
   try {
     const { Title, Flat, Floor, Area, Address } = req.body;
+
+    // if (!req.file) {
+    //   return res.status(400).json({
+    //     status: "fail",
+    //     message: "No file provided for upload",
+    //   });
+    // }
+   
+
     const data = {
       Title: Title,
       Flat: Flat,
@@ -12,6 +21,7 @@ exports.createOngoing = async (req, res) => {
       Address: Address,
       Image: req.file.path,
     };
+
     const result = await Ongoing.create(data);
 
     res.status(200).send({
@@ -27,7 +37,6 @@ exports.createOngoing = async (req, res) => {
     });
   }
 };
-
 exports.getAllOngoing = async (req, res) => {
   try {
     const result = await Ongoing.findAll();

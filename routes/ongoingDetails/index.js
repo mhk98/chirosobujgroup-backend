@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const ongoingDetails = require("../../controllers/ongoingDetails/ongoingDetails.controller");
+const { upload } = require("../../helpers/filehelper");
 const auth = require("../../middlewares/auth");
-const { upload } = require("../../middlewares/upload");
 
 router.post(
   "/create-ongoingDetails/:id",
-  upload,
+  upload.array("files"),
   ongoingDetails.createOngoingDetails
 );
 router.get("/", ongoingDetails.getAllOngoingDetails);

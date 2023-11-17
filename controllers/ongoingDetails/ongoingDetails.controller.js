@@ -6,8 +6,19 @@ exports.createOngoingDetails = async (req, res) => {
     const { id } = req.params;
     console.log(id);
     const { Video, Member } = req.body;
+
+    let filesArray = [];
+    req.files.forEach((element) => {
+      const file = {
+        
+        filePath: element.path,
+       
+      };
+      filesArray.push(file);
+    });
+
     const data = {
-      Image: req.file.path,
+      Image: filesArray,
       Video: Video,
       Member: Member,
       ongoingOngoingId: id,

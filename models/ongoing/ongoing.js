@@ -1,14 +1,13 @@
-module.exports = (sequelize, DataTypes, Sequelize) => {
-  const ongoing = sequelize.define("ongoing", {
+module.exports = (sequelize, DataTypes) => {
+  const Ongoing = sequelize.define("Ongoing", {
     Ongoing_Id: {
       type: DataTypes.INTEGER(10),
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-
     Title: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(30), // Adjust the length as needed
       allowNull: false,
     },
     Image: {
@@ -33,5 +32,5 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
     },
   });
 
-  return ongoing;
+  return Ongoing;
 };
