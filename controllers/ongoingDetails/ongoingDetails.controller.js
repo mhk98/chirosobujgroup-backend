@@ -4,30 +4,39 @@ const OngoingDetails = db.ongoingDetails;
 exports.createOngoingDetails = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
-    const { Video, Member } = req.body;
 
-    let filesArray = [];
-    req.files.forEach((element) => {
-      const file = {
-        
-        filePath: element.path,
-       
-      };
-      filesArray.push(file);
-    });
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({
+        status: "fail",
+        message: "No files were uploaded",
+      });
+    }
 
-    const data = {
-      Image: filesArray,
-      Video: Video,
-      Member: Member,
-      ongoingOngoingId: id,
-    };
-    const result = await OngoingDetails.create(data);
+    // let filesArray = [];
+    // req.files.forEach((element) => {
+    //   const file = {
+    //     filePath: element.path,
+    //   };
+    //   filesArray.push(file);
+    // });
+
+    const filesArray = req.files.map((element) => ({
+      filePath: element.path,
+    }));
+
+    console.log("object", filesArray);
+
+    const result = await OngoingDetails.create({
+      files: filesArray,
+      OngoingOngoingId: id,
+    })
+    // .then((createdEntry) => {
+    //   console.log("Entry created:", createdEntry);
+    // });
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully created OngoingDetails",
+      message: "Successfully create OngoingDetails",
       data: result,
     });
   } catch (error) {
@@ -41,7 +50,12 @@ exports.createOngoingDetails = async (req, res) => {
 
 exports.getAllOngoingDetails = async (req, res) => {
   try {
-    const result = await OngoingDetails.findAll();
+    const { id } = req.params;
+    const result = await OngoingDetails.findAll({
+      where: { OngoingOngoingId: id },
+    });
+
+    // console.log(result);
 
     res.status(200).send({
       status: "Success",
@@ -56,33 +70,33 @@ exports.getAllOngoingDetails = async (req, res) => {
     });
   }
 };
-exports.singleOngoingDetails = async (req, res) => {
-  try {
-    const { id } = req.params;
+// exports.singleOngoingDetails = async (req, res) => {
+//   try {
+//     const { id } = req.params;
 
-    const result = await OngoingDetails.findOne({
-      where: { ongoingOngoingId: id },
-    });
+//     const result = await OngoingDetails.findOne({
+//       where: { ongoingOngoingId: id },
+//     });
 
-    if (!result) {
-      return res.status(401).send({
-        status: "fail",
-        message: "No result found",
-      });
-    }
-    res.status(200).send({
-      status: "Success",
-      message: "Successfully got your result",
-      data: result,
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "fail",
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
+//     if (!result) {
+//       return res.status(401).send({
+//         status: "fail",
+//         message: "No result found",
+//       });
+//     }
+//     res.status(200).send({
+//       status: "Success",
+//       message: "Successfully got your result",
+//       data: result,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       status: "fail",
+//       message: "Something went wrong",
+//       error: error.message,
+//     });
+//   }
+// };
 exports.deleteOngoingDetails = async (req, res) => {
   try {
     const { id } = req.params;

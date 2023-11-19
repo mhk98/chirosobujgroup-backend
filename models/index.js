@@ -21,8 +21,19 @@ db.ongoingDetails = require("./ongoingDetails/ongoingDetails")(
   db.sequelize,
   DataTypes
 );
+db.ongoingFlatDetails = require("./ongoingFlatDetails/ongoingFlatDetails")(
+  db.sequelize,
+  DataTypes
+);
 
 db.ongoing.hasMany(db.ongoingDetails, { foreignkey: "Ongoing_Id" });
 db.ongoingDetails.belongsTo(db.ongoing, { foreignkey: "Ongoing_Id" });
+
+db.ongoing.hasMany(db.ongoingFlatDetails, {
+  foreignkey: "Ongoing_Id",
+});
+db.ongoingFlatDetails.belongsTo(db.ongoing, {
+  foreignkey: "Ongoing_Id",
+});
 
 module.exports = db;

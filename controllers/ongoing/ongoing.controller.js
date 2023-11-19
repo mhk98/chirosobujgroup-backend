@@ -1,5 +1,6 @@
 const db = require("../../models");
 const Ongoing = db.ongoing;
+const OngoingDetails = db.ongoingDetails;
 
 exports.createOngoing = async (req, res, next) => {
   try {
@@ -11,7 +12,6 @@ exports.createOngoing = async (req, res, next) => {
     //     message: "No file provided for upload",
     //   });
     // }
-   
 
     const data = {
       Title: Title,

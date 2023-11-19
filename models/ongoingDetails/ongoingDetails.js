@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes, Sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   const ongoingDetails = sequelize.define("ongoingDetails", {
     OngoingDetails_Id: {
       type: DataTypes.INTEGER(10),
@@ -7,17 +7,8 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
       allowNull: false,
     },
 
-    Image: {
-      type: DataTypes.JSON,
-      allowNull: false,
-    },
-
-    Video: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Member: {
-      type: DataTypes.STRING,
+    files: {
+      type: DataTypes.JSON, // Using JSON type to store an array of file paths
       allowNull: false,
     },
   });
