@@ -1,6 +1,7 @@
 const db = require("../../models");
 const Ongoing = db.ongoing;
-const OngoingDetails = db.ongoingDetails;
+// const OngoingDetails = db.ongoingDetails;
+// const OngoingFlatDetails = db.ongoingFlatDetails;
 
 exports.createOngoing = async (req, res, next) => {
   try {
@@ -23,6 +24,13 @@ exports.createOngoing = async (req, res, next) => {
     };
 
     const result = await Ongoing.create(data);
+
+    // const insertOngoingDetails = await OngoingDetails.create({
+    //   OngoingOngoingId: result.Ongoing_Id,
+    // });
+    // const insertOngoingFlatDetails = await OngoingFlatDetails.create({
+    //   OngoingOngoingId: result.Ongoing_Id,
+    // });
 
     res.status(200).send({
       status: "Success",

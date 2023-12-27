@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     Title: {
-      type: DataTypes.STRING(30), // Adjust the length as needed
+      type: DataTypes.STRING(30), 
       allowNull: false,
     },
     Image: {

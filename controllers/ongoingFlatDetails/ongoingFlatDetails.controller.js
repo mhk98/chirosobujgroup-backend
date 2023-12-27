@@ -4,8 +4,18 @@ const OngoingFlatDetails = db.ongoingFlatDetails;
 exports.createOngoingFlatDetails = async (req, res) => {
   try {
     const { id } = req.params;
-    const { profile_name, profile_url, profile_social_link, flat_name, flat_video} =
-      req.body;
+    const {
+      profile_name,
+      profile_url,
+      profile_social_link,
+      flat_name,
+      floor_name,
+      flat_video,
+    } = req.body;
+
+    const data = {
+      OngoingOngoingId: id,
+    };
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({
         status: "fail",
@@ -19,15 +29,14 @@ exports.createOngoingFlatDetails = async (req, res) => {
 
     console.log("object", filesArray);
     console.log("body", req.body);
-    
 
     const result = await OngoingFlatDetails.create({
-      ongoingFlatDetailsongoingFlatDetailsId: id,
       OngoingOngoingId: id,
       profile_name,
       profile_url,
       profile_social_link,
       flat_name,
+      floor_name,
       flat_video,
       files: filesArray,
     });
@@ -48,9 +57,10 @@ exports.createOngoingFlatDetails = async (req, res) => {
 
 exports.getAllongoingFlatDetails = async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await OngoingFlatDetails.findAll({
-      where: { flat_name: id },
+    const { id, floor, flat } = req.params;
+    console.log(id, floor, flat);
+    const result = await OngoingFlatDetails.findOne({
+      where: { OngoingOngoingId: id, floor_name: floor, flat_name: flat },
     });
 
     // console.log(result);
@@ -100,9 +110,39 @@ exports.deleteongoingFlatDetails = async (req, res) => {
 exports.updateongoingFlatDetails = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = req.body;
+    const {
+      profile_name,
+      profile_url,
+      profile_social_link,
+      floor_name,
+      flat_name,
+      flat_video,
+    } = req.body;
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({
+        status: "fail",
+        message: "No files were uploaded",
+      });
+    }
+
+    const filesArray = req.files.map((element) => ({
+      filePath: element.path,
+    }));
+
+    const data = {
+      profile_name,
+      profile_url,
+      profile_social_link,
+      floor_name,
+      flat_name,
+      flat_video,
+      files: filesArray,
+    };
+    console.log("object", data);
     const result = await OngoingFlatDetails.update(data, {
-      where: { Id: id },
+      where: {
+        OngoingOngoingId: id,
+      },
     });
 
     if (!result) {

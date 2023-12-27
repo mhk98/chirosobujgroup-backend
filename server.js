@@ -11,7 +11,9 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 
 // middlewares
-app.use(cors());
+// app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: "*", credentials: true }));
+
 app.use(cookieParser());
 
 app.use(express.json());

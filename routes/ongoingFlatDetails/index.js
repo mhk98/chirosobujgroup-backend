@@ -8,8 +8,12 @@ router.post(
   upload.array("files"),
   ongoingFlatDetails.createOngoingFlatDetails
 );
-router.get("/:id", ongoingFlatDetails.getAllongoingFlatDetails);
+router.get("/:id/:floor/:flat", ongoingFlatDetails.getAllongoingFlatDetails);
 router.delete("/:id", ongoingFlatDetails.deleteongoingFlatDetails);
-// router.put("/:id", auth("admin"), ongoingDetails.updateOngoingDetails);
+router.patch(
+  "/:id",
+  upload.array("files"),
+  ongoingFlatDetails.updateongoingFlatDetails
+);
 
 module.exports = router;

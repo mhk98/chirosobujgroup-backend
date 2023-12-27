@@ -9,28 +9,32 @@ module.exports = (sequelize, DataTypes) => {
 
     profile_name: {
       type: DataTypes.STRING(30),
-      allowNull: false,
+      allowNull: true,
     },
     profile_url: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     profile_social_link: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     flat_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    floor_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     flat_video: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
 
     files: {
       type: DataTypes.JSON,
-      allowNull: false,
+      allowNull: true,
     },
   });
 
